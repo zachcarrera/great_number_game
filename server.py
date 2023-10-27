@@ -4,10 +4,11 @@ from flask import Flask, render_template, session, redirect, request
 app = Flask(__name__)
 app.secret_key = "password"
 
+wrong_response = "<div class='row d-flex justify-content-center my-3'><div class='col-3 bg-danger text-light p-3 d-flex justify-content-center'><p>Too {}!</p></div></div>"
+
 
 @app.route("/")
 def index():
-
     if "answer" not in session:
         session["answer"] = random.randint(1, 100)
 
@@ -19,11 +20,11 @@ def process_guess():
     guess = int(request.form["number"])
     if guess > session["answer"]:
         print("Guess is too high")
-        session["response"] = "<div class='row d-flex justify-content-center my-3'><div class='col-3 bg-danger text-light p-3 d-flex justify-content-center'><p>Too high!</p></div></div>"
+        session["response"] = wrong_response.format("high")
 
     elif guess < session["answer"]:
         print("Guess is too low")
-        session["response"] = "<div class='row d-flex justify-content-center my-3'><div class='col-3 bg-danger text-light p-3 d-flex justify-content-center'><p>Too low!</p></div></div>"
+        session["response"] = wrong_response.format("low")
 
     else:
         print("Guessed the number!")
