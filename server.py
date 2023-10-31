@@ -1,5 +1,5 @@
 import random
-from flask import Flask, render_template, session, redirect, request
+from flask import Flask, render_template, session, redirect, request, flash
 
 app = Flask(__name__)
 app.secret_key = "password"
@@ -17,6 +17,10 @@ def index():
 
 @app.route("/guess", methods=["POST"])
 def process_guess():
+    if request.form["number"] == "":
+        flash("Please enter a number")
+        return redirect("/")
+
     guess = int(request.form["number"])
     if guess > session["answer"]:
         print("Guess is too high")
