@@ -4,7 +4,7 @@ from flask import Flask, render_template, session, redirect, request
 app = Flask(__name__)
 app.secret_key = "password"
 
-wrong_response = "<div class='row d-flex justify-content-center my-3'><div class='col-3 bg-danger text-light p-3 d-flex justify-content-center'><p>Too {}!</p></div></div>"
+wrong_response = "<div class='mx-auto my-3 w-80 p-3 flex justify-center bg-red-500 text-slate-200 rounded-lg'><p>Too {}!</p></div>"
 
 
 @app.route("/")
@@ -28,7 +28,7 @@ def process_guess():
 
     else:
         print("Guessed the number!")
-        session["response"] = f"<div class='row d-flex justify-content-center my-3'><div class='col-3 bg-success text-light p-3 d-flex flex-column align-items-center'><p>{guess} was the number!</p><form action='/start_game' method='post'><input type='submit' value='Play again!' class='btn btn-primary'></form></div></div>"
+        session["response"] = f"<div class='mx-auto my-3 w-80 flex flex-col items-center p-3 bg-green-500 text-slate-200 rounded-lg gap-4'><p>{guess} was the number!</p><form action='/start_game' method='post'><input type='submit' value='Play again!' class='text-white bg-blue-700 hover:bg-blue-800 rounded-lg px-5 py-2.5'></form></div>"
 
     return redirect("/")
 
